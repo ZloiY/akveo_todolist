@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
     <!--<link  rel="stylesheet" href="style.css">-->
-    <link  rel="stylesheet" href="simple.css">
     <script src="ToDoList.js"></script>
     <div id="myDIV" style="text-align: center" class="header">
         <h2>Akveo To Do List</h2>
@@ -13,10 +12,10 @@
             <input type="radio" name="sort" id="active" value="Active" onclick="itemsInProgress()" class="radio"><label>Active</label>
         </form>
     </div>
-    <div id = "myForm" style="text-align: center" >
-        <ul id="myList"></ul>
+    <div id = "myForm" style="text-align: center;min-height: 150px;  max-height: 150px; overflow-y:scroll; float: left; margin-left: 47%" >
+        <ul id="myList" style="margin: 0; padding: 10px;"></ul>
     </div>
-    <div id="btnDiv" class="footer" style="margin-top: 500px; text-align: center" >
+    <div id="btnDiv" class="footer" style="margin-top: 200px; text-align: center;" >
         <label id="itemsNum"></label>
         <input type="button" value="Check/Uncheck All " onclick="setCheckUncheckAll()" id="selectBtn" class="delSelectBtns">
         <input type="button" value="Del checked" id="delBtn" onclick="delCheckedElements()" class="delSelectBtns">

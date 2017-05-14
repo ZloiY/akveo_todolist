@@ -30,6 +30,8 @@ function addElement() {
     newTask.appendChild(checkBox);
     newTask.appendChild(taskName);
     newTask.appendChild(close);
+    if (document.getElementsByName("sort")[1].checked)
+        completeItems();
 }
 function setCheckUncheckAll() {
     let itemsList = document.getElementById("myList");
@@ -66,8 +68,10 @@ function delCheckedElements(){
 }
 function allItems(){
     let itemsList = document.getElementById("myList");
-    for(let i=0; i<itemsList.childNodes.length; i++)
-        itemsList.childNodes[i].style.display="block"
+    for(let i=0; i<itemsList.childNodes.length; i++) {
+        itemsList.childNodes[i].style.display = "block";
+        itemsList.childNodes[i].childNodes[0].style.visibility = "visible";
+    }
 }
 function completeItems(){
     let itemsList = document.getElementById("myList");
@@ -75,10 +79,13 @@ function completeItems(){
         let liItems = itemsList.childNodes[i].childNodes;
         for(let j=0; j<liItems.length; j++){
             if (liItems[j].id === "check" && liItems[j].checked === true) {
+                liItems[j].style.visibility = "hidden";
                 itemsList.childNodes[i].style.display="block";
             }else
-                if (liItems[j].id ==="check")
-                itemsList.childNodes[i].style.display="none";
+                if (liItems[j].id ==="check") {
+                    liItems[j].style.visibility="visible";
+                    itemsList.childNodes[i].style.display = "none";
+                }
         }
     }
 }
@@ -89,9 +96,12 @@ function itemsInProgress() {
         for(let j=0; j<liItems.length; j++){
             if (liItems[j].id === "check" && liItems[j].checked === true) {
                 itemsList.childNodes[i].style.display="none";
+                liItems[j].style.visibility = "visible"
             }else
-                if (liItems[j].id==="check")
-                itemsList.childNodes[i].style.display="block";
+                if (liItems[j].id==="check") {
+                    liItems[j].style.visibility="hidden";
+                    itemsList.childNodes[i].style.display = "block";
+                }
         }
     }
 }
