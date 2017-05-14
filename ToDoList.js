@@ -14,20 +14,21 @@ function addElement() {
     let checkBox = document.createElement("input");
     checkBox.type = "checkbox";
     checkBox.id = "check";
-    checkBox.className = 'checkbox';
-    close.className = 'closeBtn';
+    checkBox.className ='checkbox';
+    close.className ='closeBtn';
+    taskName.className='itemName';
     close.value = "\u00D7";
     close.onclick = function () {
         let itemsList = document.getElementById("myList");
-            for (let i=0; i < itemsList.childNodes.length; i++){
-                if(itemsList.childNodes[i].click) {
-                    itemsList.removeChild(itemsList.childNodes[i]);
-                    break;
-                }
-            }
+        for (let i=0; i < itemsList.childNodes.length; i++){
+             if(itemsList.childNodes[i].click) {
+                itemsList.removeChild(itemsList.childNodes[i]);
+                break;
+             }
+        }
     };
-    newTask.appendChild(taskName);
     newTask.appendChild(checkBox);
+    newTask.appendChild(taskName);
     newTask.appendChild(close);
 }
 function setCheckUncheckAll() {
