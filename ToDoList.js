@@ -1,4 +1,4 @@
-window.onload = f => {ToDoList.main()};
+window.onload = onloadEvent => {ToDoList.main()};
 
 class ToDoList{
     static main(){
