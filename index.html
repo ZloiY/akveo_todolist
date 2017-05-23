@@ -1,24 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-    <!--<link  rel="stylesheet" href="style.css">-->
-    <script src="ToDoList.js"></script>
-    <div id="myDIV" style="text-align: center" class="header">
+    <link  rel="stylesheet" href="style.css">
+    <script type="text/javascript" src="ToDoList.js"></script>
+    <script src="ItemListOperations.js"></script>
+    <div id="myDIV" class="headerDiv">
         <h2>Akveo To Do List</h2>
         <input type="text" id="itemInput" placeholder="Item name..." size="100">
-        <input type="button" id="addBtn" value="Add" onclick="addElement()" class="button">
+        <input type="button" id="addBtn" value="Add">
         <form id="sortDiv" action="">
-            <input type="radio" name="sort" id="all" checked="checked" onclick="allItems()" class="radio"><label>All</label>
-            <input type="radio" name="sort" id="complete" value="Complete" onclick="completeItems()" class="radio"><label>Complete</label>
-            <input type="radio" name="sort" id="active" value="Active" onclick="itemsInProgress()" class="radio"><label>Active</label>
+            <input type="radio" name="sort" id="all" checked="checked"  class="radio"><label>All</label>
+            <input type="radio" name="sort" id="complete"  class="radio"><label>Complete</label>
+            <input type="radio" name="sort" id="active"  class="radio"><label>Active</label>
         </form>
     </div>
-    <div id = "myForm" style="text-align: center;min-height: 150px;  max-height: 150px; overflow-y:scroll; float: left; margin-left: 47%" >
-        <ul id="myList" style="margin: 0; padding: 10px;"></ul>
+    <div id = "myForm" class="listDiv">
+        <ul id="myList" ></ul>
     </div>
-    <div id="btnDiv" class="footer" style="margin-top: 200px; text-align: center;" >
+    <div id="btnDiv" class="btnDiv" >
         <label>Active tasks: </label>
         <label id="itemsNum"></label>
-        <input type="button" value="Check/Uncheck All " onclick="setCheckUncheckAll()" id="selectBtn" class="delSelectBtns">
-        <input type="button" value="Del checked" id="delBtn" onclick="delCheckedElements()" class="delSelectBtns">
+        <input type="button" id = "checkUncheck" value="Check/Uncheck All " >
+        <input type="button" id="delBtn"  value="Del checked">
     </div>
 </html>
