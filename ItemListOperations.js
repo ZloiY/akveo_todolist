@@ -116,7 +116,7 @@ function hideShowItem(item){
         if (attrs.id === this.CHECK_BOX_ID && attrs.checked === true) {
             item.style.display = 'none';
             attrs.style.visibility = 'visible';
-        }
+        }else
         if (attrs.id === this.CHECK_BOX_ID) {
             attrs.style.visibility='hidden';
             item.style.display = 'block';
