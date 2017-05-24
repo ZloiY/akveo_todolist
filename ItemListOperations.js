@@ -2,7 +2,6 @@ class ItemListOperations{
 
     constructor(){
         this.setCheck = false;
-        this.checkBoxId = 'check';
     }
 
     addElement() {
@@ -21,7 +20,7 @@ class ItemListOperations{
         close.type = 'button';
         let checkBox = document.createElement('input');
         checkBox.type = 'checkbox';
-        checkBox.id = this.checkBoxId;
+        checkBox.id = 'check';
         close.value = '\u00D7';
         newTask.appendChild(checkBox);
         newTask.appendChild(taskName);
@@ -69,7 +68,7 @@ class ItemListOperations{
         const itemsList = document.getElementById('myList');
         for (let item of itemsList.childNodes){
             for (let itemAttr of item.childNodes){
-                if (itemAttr.id === this.checkBoxId && itemAttr.checked) {
+                if (itemAttr.id === 'check' && itemAttr.checked) {
                     itemsList.removeChild(item);
                     decreaseItemCounter();
                 }
@@ -82,9 +81,8 @@ function setAllItemsTrue() {
     const itemsList = document.getElementById('myList');
     for (let item of itemsList.childNodes) {
         for (let attrs of item.childNodes)
-            if (attrs.id === this.checkBoxId) {
+            if (attrs.id === 'check') {
                 attrs.checked = true;
-                attrs.value = true;
                 increaseItemCounter();
                 break;
             }
@@ -95,9 +93,8 @@ function setAllItemsFalse(){
     const itemsList = document.getElementById('myList');
     for (let item of itemsList.childNodes) {
         for (let attrs of item.childNodes)
-            if (attrs.id === this.checkBoxId) {
+            if (attrs.id === 'check') {
                 attrs.checked = false;
-                attrs.value = false;
                 break;
             }
     }
@@ -111,10 +108,10 @@ function checkBoxListener(checkBox){
 
 function closeBtnListener(){
     const itemsList = document.getElementById('myList');
-    for (let i=0; i < itemsList.childNodes.length; i++){
-        if (itemsList.childNodes[i].click) {
-            itemsList.childNodes[i].childNodes[0].checked  ? decreaseItemCounter() : false;
-            itemsList.removeChild(itemsList.childNodes[i]);
+    for (let itemsNum=0; itemsNum < itemsList.childNodes.length; itemsNum++){
+        if (itemsList.childNodes[itemsNum].click) {
+            itemsList.childNodes[itemsNum].childNodes[0].checked  ? decreaseItemCounter() : false;
+            itemsList.removeChild(itemsList.childNodes[itemsNum]);
             break;
         }
     }
@@ -130,12 +127,12 @@ function decreaseItemCounter() {
 
 function hideShowItem(item){
     for(let attrs of item.childNodes){
-        if (attrs.id === this.checkBoxId && attrs.checked === true) {
+        if (attrs.id === 'check' && attrs.checked === true) {
             item.style.display = 'none';
             attrs.style.visibility = 'visible';
             break;
         }else
-            if (attrs.id === this.checkBoxId) {
+            if (attrs.id === 'check') {
                 attrs.style.visibility='hidden';
                 item.style.display = 'block';
                 break;
