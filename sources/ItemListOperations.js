@@ -18,6 +18,7 @@ class ItemListOperations{
         document.getElementById('itemInput').value = '';
         let close = document.createElement('input');
         close.type = 'button';
+        close.id = 'closeBtn';
         let checkBox = document.createElement('input');
         checkBox.type = 'checkbox';
         checkBox.id = 'check';
@@ -33,9 +34,8 @@ class ItemListOperations{
 
     displayCompleteItems(){
         const itemsList = document.getElementById('myList');
-        for (let item of itemsList.childNodes){
-            hideShowItem(item);
-        }
+        for (let item of itemsList.childNodes)
+            showCompleteItem(item);
     }
 
     displayAllItems(){
@@ -48,9 +48,8 @@ class ItemListOperations{
 
     displayItemsInProgress(){
         const itemsList = document.getElementById('myList');
-        for (let item of itemsList.childNodes){
-            hideShowItem(item);
-        }
+        for (let item of itemsList.childNodes)
+            showItemInProgress(item);
     }
 
     setCheckUnCheckAll(){
@@ -66,10 +65,11 @@ class ItemListOperations{
 
     delCheckEl() {
         const itemsList = document.getElementById('myList');
-        for (let item of itemsList.childNodes){
-            for (let itemAttr of item.childNodes){
+        for (let itemsNum =0;  itemsNum < itemsList.childNodes.length; itemsNum++){
+            for (let itemAttr of itemsList.childNodes[itemsNum].childNodes){
                 if (itemAttr.id === 'check' && itemAttr.checked) {
-                    itemsList.removeChild(item);
+                    itemsList.removeChild(itemsList.childNodes[itemsNum]);
+                    itemsNum = -1;
                     decreaseItemCounter();
                 }
             }
@@ -108,12 +108,9 @@ function checkBoxListener(checkBox){
 
 function closeBtnListener(){
     const itemsList = document.getElementById('myList');
-    for (let itemsNum=0; itemsNum < itemsList.childNodes.length; itemsNum++){
-        if (itemsList.childNodes[itemsNum].click) {
-            itemsList.childNodes[itemsNum].childNodes[0].checked  ? decreaseItemCounter() : false;
-            itemsList.removeChild(itemsList.childNodes[itemsNum]);
-            break;
-        }
+    for (let item of itemsList.childNodes){
+          closeItemSearch(item, itemsList);
+          break;
     }
 }
 
@@ -125,7 +122,7 @@ function decreaseItemCounter() {
     document.getElementById('itemsNum').innerHTML--;
 }
 
-function hideShowItem(item){
+function showItemInProgress(item){
     for(let attrs of item.childNodes){
         if (attrs.id === 'check' && attrs.checked === true) {
             item.style.display = 'none';
@@ -137,5 +134,32 @@ function hideShowItem(item){
                 item.style.display = 'block';
                 break;
             }
+    }
+}
+
+function showCompleteItem(item) {
+    for(let attrs of item.childNodes){
+        if (attrs.id === 'check' && attrs.checked === true) {
+            item.style.display = 'block';
+            attrs.style.visibility = 'hidden';
+            break;
+        }else
+        if (attrs.id === 'check') {
+            attrs.style.visibility='visible';
+            item.style.display = 'none';
+            break;
+        }
+    }
+}
+
+function closeItemSearch(item, itemsList){
+    let decreaseToken = false;
+    for(let attrs of item.childNodes){
+        if (attrs.id === 'check' && attrs.checked)
+           decreaseToken = true;
+        if (attrs.id === 'closeBtn' && attrs.click){
+            itemsList.removeChild(item);
+            decreaseToken ? decreaseItemCounter() : 0;
+        }
     }
 }
