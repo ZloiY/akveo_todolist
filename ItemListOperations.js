@@ -33,7 +33,8 @@ class ItemListOperations{
     }
 
     displayCompleteItems(){
-        for (let item of this.itemsList.childNodes){
+        const itemsList = document.getElementById('myList');
+        for (let item of itemsList.childNodes){
             hideShowItem(item);
         }
     }
