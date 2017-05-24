@@ -11,7 +11,7 @@ class ToDoList{
         const delCheckedBtn = document.getElementById('delBtn');
         const itemsNum = document.getElementById('itemsNum');
         const inputField = document.getElementById('itemInput');
-        let operations = new ItemListOperations();
+        const operations = new ItemListOperations();
         addBtn.addEventListener('click', operations.addElement, false);
         allRadio.addEventListener('click', operations.displayAllItems, false);
         completeRadio.addEventListener('click', operations.displayCompleteItems, false);
