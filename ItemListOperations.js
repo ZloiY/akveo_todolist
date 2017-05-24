@@ -56,20 +56,10 @@ class ItemListOperations{
     setCheckUnCheckAll(){
         document.getElementById('itemsNum').innerHTML = '0';
         if (!this.setCheck) {
-            for (let item of this.itemsList.childNodes) {
-                for (let attrs of item.childNodes)
-                    if (attrs.id === this.CHECK_BOX_ID) {
-                        attrs.checked = true;
-                        increaseItemCounter();
-                    }
-            }
-             this.setCheck = true;
+            setAllItemsTrue(this.itemsList);
+            this.setCheck = true;
         }else {
-            for (let item of this.itemsList.childNodes) {
-                for (let attrs of item.childNodes)
-                    if (attrs.id === this.CHECK_BOX_ID)
-                        attrs.checked = false;
-            }
+            setAllItemsFalse(this.itemsList);
             this.setCheck = false;
         }
     }
@@ -86,11 +76,28 @@ class ItemListOperations{
     }
 }
 
+function setAllItemsFalse(itemsList) {
+    for (let item of itemsList.childNodes) {
+        for (let attrs of item.childNodes)
+            if (attrs.id === this.CHECK_BOX_ID) {
+                attrs.checked = true;
+                increaseItemCounter();
+            }
+    }
+}
+
+function setAllItemsTrue(itemsList){
+    for (let item of itemsList.childNodes) {
+        for (let attrs of item.childNodes)
+            if (attrs.id === this.CHECK_BOX_ID)
+                attrs.checked = false;
+    }
+}
+
 function checkBoxListener(checkBox){
     if(checkBox.checked)
         increaseItemCounter();
-    else
-        decreaseItemCounter();
+    else decreaseItemCounter();
 }
 
 function closeBtnListener(){
@@ -116,10 +123,12 @@ function hideShowItem(item){
         if (attrs.id === this.CHECK_BOX_ID && attrs.checked === true) {
             item.style.display = 'none';
             attrs.style.visibility = 'visible';
+            break;
         }else
-        if (attrs.id === this.CHECK_BOX_ID) {
-            attrs.style.visibility='hidden';
-            item.style.display = 'block';
-        }
+            if (attrs.id === this.CHECK_BOX_ID) {
+                attrs.style.visibility='hidden';
+                item.style.display = 'block';
+                break;
+            }
     }
 }
