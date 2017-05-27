@@ -5,31 +5,28 @@ class ItemListOperations{
     }
 
     addElement() {
-        let newTask = document.createElement('li');
-        let inputValue = document.getElementById('itemInput').value;
-        let taskName = document.createTextNode(inputValue);
-        if (document.getElementById('itemsNum').innerHTML.length === 0)
-            document.getElementById('itemsNum').innerHTML = '0';
+        const newTask = document.createElement('li');
+        const inputValue = document.getElementById('itemInput').value;
+        const taskName = document.createTextNode(inputValue);
         if (inputValue === '') {
             alert('You must write something!');
         } else {
             document.getElementById('myList').appendChild(newTask);
         }
         document.getElementById('itemInput').value = '';
-        let close = document.createElement('input');
+        const close = document.createElement('input');
         close.type = 'button';
         close.id = 'closeBtn';
-        let checkBox = document.createElement('input');
+        const checkBox = document.createElement('input');
         checkBox.type = 'checkbox';
         checkBox.id = 'check';
         close.value = '\u00D7';
         newTask.appendChild(checkBox);
         newTask.appendChild(taskName);
         newTask.appendChild(close);
-        checkBox.onclick = clickEvent => checkBoxListener(checkBox);
-        close.onclick = clickEvent => closeBtnListener();
-        if (document.getElementsByName('sort')[1].checked)
-            this.displayCompleteItems();
+        checkBox.addEventListener('click', checkBoxListener(checkBox));
+        close.addEventListener('click', closeBtnListener);
+        this.completeItemCheck();
     }
 
     displayCompleteItems(){
@@ -49,7 +46,7 @@ class ItemListOperations{
     displayItemsInProgress(){
         const itemsList = document.getElementById('myList');
         for (let item of itemsList.childNodes)
-            showItemInProgress(item);
+           showItemInProgress(item);
     }
 
     setCheckUnCheckAll(){
@@ -74,6 +71,11 @@ class ItemListOperations{
                 }
             }
         }
+    }
+
+    completeItemCheck(){
+        if (document.getElementsByName('sort')[1].checked)
+            this.displayCompleteItems();
     }
 }
 
