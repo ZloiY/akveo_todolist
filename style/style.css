@@ -29,3 +29,19 @@ ul{
     padding: 10px;
     display: inline;
 }
+
+.stdListEl{
+    display: block;
+}
+
+.invisibleListEl{
+    display: none;
+}
+
+.visibleCheckBox{
+    visibility: visible;
+}
+
+.invisibleCheckBox{
+    visibility: hidden;
+}

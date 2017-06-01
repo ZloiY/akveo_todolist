@@ -1,4 +1,6 @@
-window.addEventListener('load', ToDoList.main);
+window.addEventListener('load', (loadEvent) => {
+    ToDoList.main();
+});
 
 class ToDoList{
 
@@ -28,7 +30,7 @@ class ToDoList{
     }
 
     static addInputFieldEvListener(inputField, operations){
-        inputField.addEventListener('keyup', (enterDelPressed) =>{
+        inputField.addEventListener('keyup', (enterDelPressed) => {
             this.enterKeyPressed(enterDelPressed.keyCode, operations);
             this.delKeyPressed(enterDelPressed.keyCode, operations);
         });
