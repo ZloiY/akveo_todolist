@@ -78,7 +78,8 @@ function increaseActiveItemCounter(){
 }
 
 function decreaseActiveItemCounter(){
-    this.activeItems--;
+    if (this.activeItems > 0)
+        this.activeItems--;
     setActiveItemsInHTML();
 }
 
@@ -89,11 +90,11 @@ function dropActiveItemCounter(){
 
 function setAllItemsTrue() {
     const itemsList = document.getElementById('myList');
+    dropActiveItemCounter();
     for (let item of itemsList.childNodes) {
         for (let attrs of item.childNodes)
             if (attrs.id === 'check') {
                 attrs.checked = true;
-                decreaseActiveItemCounter();
                 break;
             }
     }
@@ -105,6 +106,7 @@ function setAllItemsFalse(){
         for (let attrs of item.childNodes)
             if (attrs.id === 'check') {
                 attrs.checked = false;
+                increaseActiveItemCounter();
                 break;
             }
     }
@@ -112,8 +114,8 @@ function setAllItemsFalse(){
 
 function checkBoxListener(checkBox){
     if(checkBox.checked)
-        increaseActiveItemCounter();
-    else decreaseActiveItemCounter();
+        decreaseActiveItemCounter();
+    else increaseActiveItemCounter();
 }
 
 function closeBtnListener(){
