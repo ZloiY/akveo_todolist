@@ -60,7 +60,6 @@ class ItemListOperations{
                 if (itemAttr.id === 'check' && itemAttr.checked) {
                     itemsList.removeChild(itemsList.childNodes[itemsNum]);
                     itemsNum = -1;
-                    decreaseActiveItemCounter();
                 }
             }
         }
@@ -73,6 +72,8 @@ function completeItemCheck(){
 }
 
 function increaseActiveItemCounter(){
+    if (isNaN(this.activeItems))
+        this.activeItems = 0;
     this.activeItems++;
     setActiveItemsInHTML();
 }
@@ -91,31 +92,31 @@ function dropActiveItemCounter(){
 function setAllItemsTrue() {
     const itemsList = document.getElementById('myList');
     dropActiveItemCounter();
-    for (let item of itemsList.childNodes) {
+    for (let item of itemsList.childNodes)
         for (let attrs of item.childNodes)
             if (attrs.id === 'check') {
                 attrs.checked = true;
                 break;
             }
-    }
 }
 
 function setAllItemsFalse(){
     const itemsList = document.getElementById('myList');
-    for (let item of itemsList.childNodes) {
+    for (let item of itemsList.childNodes)
         for (let attrs of item.childNodes)
             if (attrs.id === 'check') {
                 attrs.checked = false;
                 increaseActiveItemCounter();
                 break;
             }
-    }
 }
 
 function checkBoxListener(checkBox){
-    if(checkBox.checked)
+    if(checkBox.checked && checkBox.click)
         decreaseActiveItemCounter();
-    else increaseActiveItemCounter();
+    else
+        if (checkBox.click)
+            increaseActiveItemCounter();
 }
 
 function closeBtnListener(){
@@ -167,14 +168,23 @@ function visibleCheckInvisListEl(item, attrs){
 }
 
 function closeItemSearch(item, itemsList){
-    let decreaseToken = false;
+    let decreaseActiveItemsNum = true;
     for(let attrs of item.childNodes){
-        if (attrs.id === 'check' && attrs.checked)
-           decreaseToken = true;
-        if (attrs.id === 'closeBtn' && attrs.click){
-            itemsList.removeChild(item);
-            decreaseToken ? this.decreaseActiveItemCounter() : 0;
-        }
+        decreaseActiveItemsNum = checkBoxCheck(attrs);
+        closeBtnClick(attrs, itemsList, item, decreaseActiveItemsNum);
+    }
+}
+
+function checkBoxCheck(attrs){
+    if (attrs.id === 'check' && attrs.checked)
+        return false;
+    else return true;
+}
+
+function closeBtnClick(attrs, itemList, item, decreaseActiveItemsNum){
+    if (attrs.id === 'closeBtn' && attrs.click){
+        itemList.removeChild(item);
+        decreaseActiveItemsNum ? decreaseActiveItemCounter() : 0;
     }
 }
 
@@ -192,12 +202,6 @@ function createCheckBox(){
     checkBox.id = 'check';
     return checkBox;
 }
-
-/*
-function newTaskAppendChildren(newTask, ...children) {
-    // for (let child of children)
-    //     newTask.appendChild(child);
-}*/
 
 function newTaskAppendChildren(newTask, checkbox, name, closeBtn) {
     newTask.appendChild(checkbox);
