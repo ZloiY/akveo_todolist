@@ -16,7 +16,7 @@ class ItemListOperations{
         const close = createCloseBtn();
         const checkBox = createCheckBox();
         newTaskAppendChildren(newTask, checkBox, taskName, close);
-        checkBox.addEventListener('click', checkBoxListener(checkBox));
+        checkBox.addEventListener('click', checkBoxListener);
         close.addEventListener('click', closeBtnListener);
         increaseActiveItemCounter();
         completeItemCheck();
@@ -71,6 +71,107 @@ function completeItemCheck(){
         this.displayCompleteItems();
 }
 
+function setAllItemsFalse(){
+    const itemsList = document.getElementById('myList');
+    for (let item of itemsList.childNodes)
+        searchCheckAttr(item, false);
+}
+
+function setAllItemsTrue() {
+    const itemsList = document.getElementById('myList');
+    dropActiveItemCounter();
+    for (let item of itemsList.childNodes)
+        searchCheckAttr(item, true);
+}
+
+function searchCheckAttr (item, checkBoxState) {
+    for(let attr of item.childNodes)
+        setCheckBox(attr,checkBoxState);
+}
+
+function setCheckBox(attr, checkBoxState) {
+    if (attr.id === 'check') {
+        attr.checked = checkBoxState;
+        increaseActiveItemCounter();
+    }
+}
+
+function checkBoxListener(){
+    const itemList = document.getElementById('myList');
+    for (let item of itemList.childNodes)
+        chekcBoxSearch(item)
+}
+
+function chekcBoxSearch(item){
+    for (let attrs of item.childNodes)
+        checkClicked(attrs)
+}
+
+function checkClicked (attrs) {
+    if (attrs.id === 'check' && attrs.click)
+        attrs.checked ? decreaseActiveItemCounter() : increaseActiveItemCounter();
+}
+
+function closeBtnListener(){
+    const itemsList = document.getElementById('myList');
+    for(let item of itemsList.childNodes){
+          closeItemSearch(item, itemsList);
+    }
+}
+
+function closeItemSearch(item, itemsList){
+    let isCheck;
+    for(let attrs of item.childNodes) {
+        isCheck = checkBoxCheck(attrs, isCheck);
+        closeBtnClick(attrs, itemsList, item, isCheck);
+    }
+}
+
+function checkBoxCheck(attrs, isCheck){
+    if (attrs.id === 'check' && isNaN(isCheck)) {
+        attrs.checked ? isCheck = false : isCheck = true;
+        return isCheck;
+    }
+    return isCheck;
+}
+
+function closeBtnClick(attrs, itemList, item, decreaseActiveItemsNum){
+    if (attrs.id === 'closeBtn' && attrs.click){
+        itemList.removeChild(item);
+        decreaseActiveItemsNum ? decreaseActiveItemCounter() : 0;
+    }
+}
+
+function showItemInProgress(item){
+    for(let attrs of item.childNodes)
+        setUpActiveListElVisibility(item, attrs);
+}
+
+function setUpActiveListElVisibility(item, attrs) {
+    if (attrs.id === 'check')
+        attrs.checked ? visibleCheckInvisListEl(item, attrs) : invisCheckVisListEl(item, attrs);
+}
+
+function showCompleteItem(item) {
+    for(let attrs of item.childNodes)
+       setUpCompleteListElVisibility(item, attrs);
+}
+
+function setUpCompleteListElVisibility (item, attrs){
+    if(attrs.id === 'check')
+        attrs.checked ? invisCheckVisListEl(item, attrs) : visibleCheckInvisListEl(item, attrs)
+}
+
+function invisCheckVisListEl (item, attrs) {
+    item.className = 'stdListEl';
+    attrs.className = 'invisibleCheckBox';
+}
+
+function visibleCheckInvisListEl(item, attrs){
+    attrs.className ='visibleCheckBox';
+    item.className = 'invisibleListEl';
+}
+
 function increaseActiveItemCounter(){
     if (isNaN(this.activeItems))
         this.activeItems = 0;
@@ -89,103 +190,8 @@ function dropActiveItemCounter(){
     setActiveItemsInHTML();
 }
 
-function setAllItemsTrue() {
-    const itemsList = document.getElementById('myList');
-    dropActiveItemCounter();
-    for (let item of itemsList.childNodes)
-        for (let attrs of item.childNodes)
-            if (attrs.id === 'check') {
-                attrs.checked = true;
-                break;
-            }
-}
-
-function setAllItemsFalse(){
-    const itemsList = document.getElementById('myList');
-    for (let item of itemsList.childNodes)
-        for (let attrs of item.childNodes)
-            if (attrs.id === 'check') {
-                attrs.checked = false;
-                increaseActiveItemCounter();
-                break;
-            }
-}
-
-function checkBoxListener(checkBox){
-    if(checkBox.checked && checkBox.click)
-        decreaseActiveItemCounter();
-    else
-        if (checkBox.click)
-            increaseActiveItemCounter();
-}
-
-function closeBtnListener(){
-    const itemsList = document.getElementById('myList');
-    for (let item of itemsList.childNodes){
-          closeItemSearch(item, itemsList);
-          break;
-    }
-}
-
 function setActiveItemsInHTML() {
     document.getElementById('itemsNum').innerHTML = this.activeItems;
-}
-
-function showItemInProgress(item){
-    for(let attrs of item.childNodes)
-        setUpActiveListElVisibility(item, attrs);
-}
-
-function setUpActiveListElVisibility(item, attrs) {
-    if (attrs.id === 'check' && attrs.checked)
-        visibleCheckInvisListEl(item, attrs);
-    else
-        if (attrs.id === 'check')
-            invisCheckVisListEl(item, attrs);
-}
-
-function showCompleteItem(item) {
-    for(let attrs of item.childNodes)
-       setUpCompleteListElVisibility(item, attrs);
-}
-
-function setUpCompleteListElVisibility (item, attrs){
-    if(attrs.id === 'check' && attrs.checked)
-        invisCheckVisListEl(item, attrs);
-    else
-        if (attrs.id === 'check')
-            visibleCheckInvisListEl(item, attrs)
-}
-
-function invisCheckVisListEl (item, attrs) {
-    item.className = 'stdListEl';
-    attrs.className = 'invisibleCheckBox';
-}
-
-function visibleCheckInvisListEl(item, attrs){
-    attrs.className ='visibleCheckBox';
-    item.className = 'invisibleListEl';
-}
-
-function closeItemSearch(item, itemsList){
-    let decreaseActiveItemsNum = true;
-    for(let attrs of item.childNodes){
-        decreaseActiveItemsNum = checkBoxCheck(attrs);
-        closeBtnClick(attrs, itemsList, item, decreaseActiveItemsNum);
-    }
-}
-
-function checkBoxCheck(attrs){
-    if (attrs.id === 'check' && attrs.checked)
-        return false;
-    else return true;
-}
-
-function closeBtnClick(attrs, itemList, item, decreaseActiveItemsNum){
-    if (attrs.id === 'closeBtn' && attrs.click){
-        itemList.removeChild(item);
-        decreaseActiveItemsNum ? decreaseActiveItemCounter() : 0;
-    }
 }
 
 function createCloseBtn(){

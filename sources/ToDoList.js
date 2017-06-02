@@ -14,7 +14,6 @@ class ToDoList{
         const itemsNum = document.getElementById('itemsNum');
         const inputField = document.getElementById('itemInput');
         const operations = new ItemListOperations();
-        document.getElementById('itemsNum').innerHTML = '0';
         this.addBtnsFieldEvListeners(operations, addBtn, allRadio, completeRadio, activeRadio, checkUncheckBtn, delCheckedBtn);
         this.addDocHotKeyEvListeners(operations, allRadio, completeRadio, activeRadio, inputField);
         this.addInputFieldEvListener(inputField, operations);
