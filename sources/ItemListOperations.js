@@ -108,7 +108,7 @@ function chekcBoxSearch(item){
 }
 
 function checkClicked (attrs) {
-    if (attrs.id === 'check' && attrs.click)
+    if (attrs.id === 'check' && (document.activeElement === attrs))
         attrs.checked ? decreaseActiveItemCounter() : increaseActiveItemCounter();
 }
 
