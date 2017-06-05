@@ -9,8 +9,7 @@ class ItemListOperations{
         const newTask = document.createElement('li');
         const inputValue = document.getElementById('itemInput').value;
         const taskName = document.createTextNode(inputValue);
-        if (inputValue === '')
-            alert('You must write something!');
+        if (inputValue === '') alert('You must write something!');
         else document.getElementById('myList').appendChild(newTask);
         document.getElementById('itemInput').value = '';
         const close = createCloseBtn();
@@ -30,7 +29,7 @@ class ItemListOperations{
 
     displayAllItems(){
         const itemsList = document.getElementById('myList');
-        for(let itemNum=0; itemNum<itemsList.childNodes.length; itemNum++) {
+        for(let itemNum=0; itemNum<itemsList.childNodes.length; itemNum += 1) {
             itemsList.childNodes[itemNum].className = 'stdListEl';
             itemsList.childNodes[itemNum].childNodes[0].className = 'visibleCheckBox';
         }
@@ -54,7 +53,7 @@ class ItemListOperations{
 
     delCheckEl() {
         const itemsList = document.getElementById('myList');
-        for (let itemsNum =0;  itemsNum < itemsList.childNodes.length; itemsNum++){
+        for (let itemsNum =0;  itemsNum < itemsList.childNodes.length; itemsNum += 1){
             this.checkSearch(itemsNum, itemsList);
             itemsNum = -1;
         }
@@ -62,35 +61,37 @@ class ItemListOperations{
 }
 
 function checkSearch(itemNum, itemList){
-    for(let itemAttr of itemList.childNodes[itemNum].childNodes)
+    for(let itemAttr of itemList.childNodes[itemNum].childNodes) {
         itemDel(itemAttr, itemList, itemNum);
+    }
 }
 
 function itemDel(itemAttr, itemList, itemNum){
-    if(itemAttr.id === 'check' && itemAttr.checked)
-        itemList.removeChild(itemList.childNodes[itemNum]);
+    if(itemAttr.id === 'check' && itemAttr.checked) itemList.removeChild(itemList.childNodes[itemNum]);
 }
 
 function completeItemCheck(){
-    if (document.getElementsByName('sort')[1].checked)
-        this.displayCompleteItems();
+    if (document.getElementsByName('sort')[1].checked) this.displayCompleteItems();
 }
 
 function setAllItemsFalse(){
     const itemsList = document.getElementById('myList');
-    for (let item of itemsList.childNodes)
+    for (let item of itemsList.childNodes) {
         searchCheckAttr(item, false);
+    }
 }
 
 function setAllItemsTrue() {
     const itemsList = document.getElementById('myList');
-    for (let item of itemsList.childNodes)
+    for (let item of itemsList.childNodes) {
         searchCheckAttr(item, true);
+    }
 }
 
-function searchCheckAttr (item, checkBoxState) {
-    for(let attr of item.childNodes)
-        setCheckBox(attr,checkBoxState);
+function searchCheckAttr(item, checkBoxState) {
+    for(let attr of item.childNodes) {
+        setCheckBox(attr, checkBoxState);
+    }
 }
 
 function setCheckBox(attr, checkBoxState) {
@@ -102,41 +103,45 @@ function setCheckBox(attr, checkBoxState) {
 
 function checkBoxListener(){
     const itemList = document.getElementById('myList');
-    for (let item of itemList.childNodes)
-        chekcBoxSearch(item)
+    for (let item of itemList.childNodes) {
+        chekcBoxSearch(item);
+    }
 }
 
 function chekcBoxSearch(item){
-    for (let attrs of item.childNodes)
-        checkClicked(attrs)
+    for (let attrs of item.childNodes) {
+        checkClicked(attrs);
+    }
 }
 
-function checkClicked (attrs) {
-    if (attrs.id === 'check' && (document.activeElement === attrs))
+function checkClicked(attrs) {
+    if (attrs.id === 'check' && document.activeElement === attrs) {
         attrs.checked ? decreaseActiveItemCounter() : increaseActiveItemCounter();
+    }
 }
 
 function closeBtnListener(){
     const itemsList = document.getElementById('myList');
-    for(let item of itemsList.childNodes){
-          closeItemSearch(item, itemsList);
+    for(let item of itemsList.childNodes) {
+        closeItemSearch(item, itemsList);
     }
 }
 
 function closeItemSearch(item, itemsList){
     let isCheck;
     for(let attrs of item.childNodes) {
-        isCheck = checkBoxCheck(attrs, isCheck);
+        isCheck = checkBoxCheck(attrs);
         closeBtnClick(attrs, itemsList, item, isCheck);
     }
 }
 
-function checkBoxCheck(attrs, isCheck){
-    if (attrs.id === 'check' && isNaN(isCheck)) {
-        attrs.checked ? isCheck = false : isCheck = true;
+function checkBoxCheck(attrs){
+    if (attrs.id === 'check') {
+        const isCheck = !attrs.checked;
         return isCheck;
     }
-    return isCheck;
+
+    return null;
 }
 
 function closeBtnClick(attrs, itemList, item, decreaseActiveItemsNum){
@@ -147,26 +152,30 @@ function closeBtnClick(attrs, itemList, item, decreaseActiveItemsNum){
 }
 
 function showItemInProgress(item){
-    for(let attrs of item.childNodes)
+    for(let attrs of item.childNodes) {
         setUpActiveListElVisibility(item, attrs);
+    }
 }
 
 function setUpActiveListElVisibility(item, attrs) {
-    if (attrs.id === 'check')
+    if (attrs.id === 'check') {
         attrs.checked ? visibleCheckInvisListEl(item, attrs) : invisCheckVisListEl(item, attrs);
+    }
 }
 
 function showCompleteItem(item) {
-    for(let attrs of item.childNodes)
-       setUpCompleteListElVisibility(item, attrs);
+    for(let attrs of item.childNodes) {
+        setUpCompleteListElVisibility(item, attrs);
+    }
 }
 
-function setUpCompleteListElVisibility (item, attrs){
-    if(attrs.id === 'check')
+function setUpCompleteListElVisibility(item, attrs){
+    if(attrs.id === 'check') {
         attrs.checked ? invisCheckVisListEl(item, attrs) : visibleCheckInvisListEl(item, attrs)
+    }
 }
 
-function invisCheckVisListEl (item, attrs) {
+function invisCheckVisListEl(item, attrs) {
     item.className = 'stdListEl';
     attrs.className = 'invisibleCheckBox';
 }
@@ -177,15 +186,13 @@ function visibleCheckInvisListEl(item, attrs){
 }
 
 function increaseActiveItemCounter(){
-    if (isNaN(this.activeItems))
-        this.activeItems = 0;
-    this.activeItems++;
+    if (isNaN(this.activeItems)) this.activeItems = 0;
+    this.activeItems += 1;
     setActiveItemsInHTML();
 }
 
 function decreaseActiveItemCounter(){
-    if (this.activeItems > 0)
-        this.activeItems--;
+    if (this.activeItems > 0) this.activeItems -= 1;
     setActiveItemsInHTML();
 }
 
