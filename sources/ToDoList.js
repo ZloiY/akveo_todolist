@@ -52,13 +52,11 @@ class ToDoList{
     }
 
     static enterKeyPressed(enterKeyCode, operations){
-        if (enterKeyCode === 13)
-            operations.addElement();
+        if (enterKeyCode === 13) operations.addElement();
     }
 
     static delKeyPressed(delKeyCode, inputField){
-        if (delKeyCode === 46)
-            inputField.value = '';
+        if (delKeyCode === 46) inputField.value = '';
     }
 
     static hotKeyAPressed(hotKeyCode, operations, radioBtn){
@@ -83,12 +81,10 @@ class ToDoList{
     }
 
     static hotKeySPressed(hotKeyCode, operations){
-        if (hotKeyCode === 83)
-            operations.setCheckUnCheckAll();
+        if (hotKeyCode === 83) operations.setCheckUnCheckAll();
     }
 
     static hotKeyDPressed(hotKeyCode, operations){
-        if (hotKeyCode === 68)
-            operations.delCheckEl();
+        if (hotKeyCode === 68) operations.delCheckEl();
     }
 }
