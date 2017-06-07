@@ -12,172 +12,86 @@ function main() {
   const itemsNum = document.getElementById('itemsNum');
   const inputField = document.getElementById('itemInput');
   const operations = new ItemListOperations();
-  addBtnsFieldEvListeners(
+  const eventListeneresParametres = {
     operations,
     addBtn,
     allRadio,
     completeRadio,
     activeRadio,
     checkUncheckBtn,
-    delCheckedBtn
-  );
-  addDocHotKeyEvListeners(
-    operations,
-    allRadio,
-    completeRadio,
-    activeRadio,
-    inputField
-  );
-  addInputFieldEvListener(
+    delCheckedBtn,
     inputField,
-    operations
-  );
+  };
+  addBtnsFieldEvListeners(eventListeneresParametres);
+  addDocHotKeyEvListeners(eventListeneresParametres);
+  addInputFieldEvListener(eventListeneresParametres);
 }
 
-function  addBtnsFieldEvListeners(
-  operations,
-  addBtn,
-  allRadio,
-  completeRadio,
-  activeRadio,
-  checkUncheckBtn,
-  delCheckedBtn
-) {
-  addBtn.addEventListener('click', operations.addElement, false);
-  allRadio.addEventListener('click', operations.displayAllItems, false);
-  completeRadio.addEventListener('click', operations.displayCompleteItems, false);
-  activeRadio.addEventListener('click', operations.displayItemsInProgress, false);
-  checkUncheckBtn.addEventListener('click', operations.setCheckUnCheckAll, false);
-  delCheckedBtn.addEventListener('click', operations.delCheckEl, false);
+function  addBtnsFieldEvListeners(eventListenersParameters) {
+  eventListenersParameters.addBtn.addEventListener('click', eventListenersParameters.operations.addElement, false);
+  eventListenersParameters.allRadio.addEventListener('click', eventListenersParameters.operations.displayAllItems, false);
+  eventListenersParameters.completeRadio.addEventListener('click', eventListenersParameters.operations.displayCompleteItems, false);
+  eventListenersParameters.activeRadio.addEventListener('click', eventListenersParameters.operations.displayItemsInProgress, false);
+  eventListenersParameters.checkUncheckBtn.addEventListener('click', eventListenersParameters.operations.setCheckUnCheckAll, false);
+  eventListenersParameters.delCheckedBtn.addEventListener('click', eventListenersParameters.operations.delCheckEl, false);
 }
 
-function addInputFieldEvListener(
-  inputField,
-  operations
-) {
-  inputField.addEventListener('keyup', (enterDelPressed) => {
-    enterKeyPressed(
-      enterDelPressed.keyCode,
-      operations
-    );
-    delKeyPressed(
-      enterDelPressed.keyCode,
-      operations
-    );
+function addInputFieldEvListener(eventListenersParameters) {
+  eventListenersParameters.inputField.addEventListener('keyup', (enterDelPressed) => {
+    enterKeyPressed(enterDelPressed.keyCode, eventListenersParameters.operations);
+    delKeyPressed(enterDelPressed.keyCode, eventListenersParameters.operations);
   });
  }
 
-function addDocHotKeyEvListeners(
-  operations,
-  allRadio,
-  completeRadio,
-  activeRadio,
-  inputField
-) {
+function addDocHotKeyEvListeners(eventListenersParameters) {
   document.addEventListener('keyup', (hotKeyPressed) => {
-    addHotKeyListners(
-      hotKeyPressed.keyCode,
-      operations,
-      allRadio,
-      completeRadio,
-      activeRadio,
-      inputField
-    );
+    addHotKeyListeners(hotKeyPressed.keyCode, eventListenersParameters);
   });
 }
 
-function addHotKeyListners(
-  hotKeyCode,
-  operations,
-  allRadio,
-  completeRadio,
-  activeRadio,
-  inputField
-) {
-  if (document.activeElement !== inputField) {
-    hotKeyAPressed(
-      hotKeyCode,
-      operations,
-      allRadio
-    );
-    hotKeyCPressed(
-      hotKeyCode,
-      operations,
-      completeRadio
-    );
-    hotKeyVPressed(
-      hotKeyCode,
-      operations,
-      activeRadio
-    );
-    hotKeyDPressed(
-      hotKeyCode,
-      operations
-    );
-    hotKeySPressed(
-      hotKeyCode,
-      operations
-    );
+function addHotKeyListeners(hotKeyCode, eventListenersParameters) {
+  if (document.activeElement !== eventListenersParameters.inputField) {
+    hotKeyAPressed(hotKeyCode, eventListenersParameters.operations, eventListenersParameters.allRadio);
+    hotKeyCPressed(hotKeyCode, eventListenersParameters.operations, eventListenersParameters.completeRadio);
+    hotKeyVPressed(hotKeyCode, eventListenersParameters.operations, eventListenersParameters.activeRadio);
+    hotKeyDPressed(hotKeyCode, eventListenersParameters.operations);
+    hotKeySPressed(hotKeyCode, eventListenersParameters.operations);
    }
 }
 
-function enterKeyPressed(
-  enterKeyCode,
-  operations
-) {
+function enterKeyPressed(enterKeyCode, operations) {
   if (enterKeyCode === 13) operations.addElement();
 }
 
-function delKeyPressed(
-  delKeyCode,
-  inputField
-) {
+function delKeyPressed(delKeyCode, inputField) {
   if (delKeyCode === 46) inputField.value = '';
 }
 
-function hotKeyAPressed(
-  hotKeyCode,
-  operations,
-  radioBtn
-) {
+function hotKeyAPressed(hotKeyCode, operations, radioBtn) {
   if (hotKeyCode === 65){
     operations.displayAllItems();
      radioBtn.checked = true;
   }
 }
 
-function hotKeyCPressed(
-  hotKeyCode,
-  operations,
-  radioBtn
-) {
+function hotKeyCPressed(hotKeyCode, operations, radioBtn) {
   if (hotKeyCode === 67) {
     operations.displayCompleteItems();
     radioBtn.checked = true;
     }
 }
 
-function hotKeyVPressed(
-  hotKeyCode,
-  operations,
-  radioBtn
-){
+function hotKeyVPressed(hotKeyCode, operations, radioBtn){
   if (hotKeyCode === 86) {
     operations.displayItemsInProgress();
     radioBtn.checked = true;
    }
 }
 
-function hotKeySPressed(
-  hotKeyCode,
-  operations
-) {
+function hotKeySPressed(hotKeyCode, operations) {
   if (hotKeyCode === 83) operations.setCheckUnCheckAll();
 }
 
-function hotKeyDPressed(
-  hotKeyCode,
-  operations
-) {
+function hotKeyDPressed(hotKeyCode, operations) {
   if (hotKeyCode === 68) operations.delCheckEl();
 }
