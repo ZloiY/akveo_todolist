@@ -11,6 +11,9 @@ function main() {
   const delCheckedBtn = document.getElementById('delBtn');
   const itemsNum = document.getElementById('itemsNum');
   const inputField = document.getElementById('itemInput');
+  const allRadioLabel = document.getElementById('allTasks');
+  const completeRadioLabel = document.getElementById('completeTasks');
+  const activeRadioLabel = document.getElementById('activeTasks');
   const operations = new ItemListOperations();
   const eventListenersParameters = {
     operations,
@@ -21,6 +24,9 @@ function main() {
     checkUncheckBtn,
     delCheckedBtn,
     inputField,
+    allRadioLabel,
+    completeRadioLabel,
+    activeRadioLabel,
   };
   addBtnsFieldEvListeners(eventListenersParameters);
   addDocHotKeyEvListeners(eventListenersParameters);
@@ -34,6 +40,9 @@ function  addBtnsFieldEvListeners(eventListenersParameters) {
   eventListenersParameters.activeRadio.addEventListener('click', eventListenersParameters.operations.displayItemsInProgress, false);
   eventListenersParameters.checkUncheckBtn.addEventListener('click', eventListenersParameters.operations.setCheckUnCheckAll, false);
   eventListenersParameters.delCheckedBtn.addEventListener('click', eventListenersParameters.operations.delCheckEl, false);
+  eventListenersParameters.allRadioLabel.addEventListener('click', eventListenersParameters.operations.displayAllItems, false);
+  eventListenersParameters.completeRadioLabel.addEventListener('click', eventListenersParameters.operations.displayCompleteItems, false);
+  eventListenersParameters.activeRadioLabel.addEventListener('click', eventListenersParameters.operations.displayItemsInProgress, false);
 }
 
 function addInputFieldEvListener(eventListenersParameters) {

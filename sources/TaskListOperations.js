@@ -13,6 +13,7 @@ class ItemListOperations {
     const checkbox = createCheckBox();
     if (inputValue === '') {
       alert('You must write something!');
+      return;
     } else {
       document.getElementById('myList').appendChild(newTask);
     }
@@ -33,14 +34,22 @@ class ItemListOperations {
   }
 
   displayCompleteItems() {
+    const completeRadio = document.getElementById('complete');
+    const completeRadioLabel = document.getElementById('completeTasks');
     const itemsList = document.getElementById('myList');
+    radioGroupBtnCheck(completeRadio);
+    radioGroupLabelsClicked(completeRadioLabel);
     for (let item of itemsList.childNodes) {
       showCompleteItem(item);
     }
   }
 
   displayAllItems() {
+    const allRadio = document.getElementById('all');
+    const allRadioLabel = document.getElementById('allTasks');
     const itemsList = document.getElementById('myList');
+    radioGroupBtnCheck(allRadio);
+    radioGroupLabelsClicked(allRadioLabel);
     for (let itemNum=0; itemNum<itemsList.childNodes.length; itemNum += 1) {
       itemsList.childNodes[itemNum].className = 'task-visible';
       itemsList.childNodes[itemNum].childNodes[0].className = 'task-checkbox-visible';
@@ -48,7 +57,11 @@ class ItemListOperations {
   }
 
   displayItemsInProgress() {
+    const activeRadio = document.getElementById('active');
+    const activeRadioLabel = document.getElementById('activeTasks');
     const itemsList = document.getElementById('myList');
+    radioGroupBtnCheck(activeRadio);
+    radioGroupLabelsClicked(activeRadioLabel);
     for (let item of itemsList.childNodes) {
       showItemInProgress(item);
     }
@@ -67,15 +80,12 @@ class ItemListOperations {
   delCheckEl() {
     const itemsList = document.getElementById('myList');
     for (let itemsNum =0;  itemsNum < itemsList.childNodes.length; itemsNum += 1) {
-      itemsNum =checkSearch(itemsNum, itemsList);
+      itemsNum = checkSearch(itemsNum, itemsList);
     }
   }
 }
 
-function checkSearch(
-  itemNum,
-  itemList
-) {
+function checkSearch(itemNum, itemList) {
   for (let itemAttr of itemList.childNodes[itemNum].childNodes) {
     const itemsNum = itemDel(itemAttr, itemList, itemNum);
     return itemsNum;
@@ -252,4 +262,39 @@ function taskListAppendChild(params) {
   params.newTask.appendChild(params.taskName);
   params.newTask.appendChild(params.closeBtn);
   params.newTask.className = 'task-visible';
+}
+
+function radioGroupBtnCheck(radioBtn) {
+  if (!radioBtn.checked) {
+    radioBtn.checked = true;
+  }
+}
+
+function radioGroupLabelsClicked(radioGroupLabel) {
+  const completeRadioGroupLabel = document.getElementById('completeTasks');
+  const activeRadioGroupLabel = document.getElementById('activeTasks');
+  const allRadioGroupLabel = document.getElementById('allTasks');
+  switch (radioGroupLabel.id){
+    case completeRadioGroupLabel.id: {
+      completeRadioGroupLabel.className = 'radio-btn-label-selected';
+      activeRadioGroupLabel.className = 'radio-btn-label';
+      allRadioGroupLabel.className = 'radio-btn-label';
+      break;
+    }
+    case activeRadioGroupLabel.id: {
+      completeRadioGroupLabel.className = 'radio-btn-label';
+      activeRadioGroupLabel.className = 'radio-btn-label-selected';
+      allRadioGroupLabel.className = 'radio-btn-label';
+      break;
+    }
+    case allRadioGroupLabel.id: {
+      completeRadioGroupLabel.className = 'radio-btn-label';
+      activeRadioGroupLabel.className = 'radio-btn-label';
+      allRadioGroupLabel.className = 'radio-btn-label-selected';
+      break;
+    }
+    default: {
+
+    }
+  }
 }
