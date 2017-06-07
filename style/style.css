@@ -111,8 +111,7 @@
 .group-radio-btn {
     padding: 10px;
     cursor: pointer;
-    display: inline;
-
+    display: none;
 }
 
 .task-close-btn {
