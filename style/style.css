@@ -2,46 +2,150 @@
     box-sizing: border-box;
 }
 
-ul{
+.taskListHeader {
+    text-align: center;
+    font-family: 'MV Boli';
+    background-color: #36c5f4;
+    color: #f8ffff;
+}
+
+.inputNewTask {
+    font-family: 'MV Boli';
+    border: hidden;
+    font-size: 15px;
+    padding: 3px;
+}
+
+.addNewTaskBtn {
+    border: hidden;
+    cursor: pointer;
+    font-family: 'MV Boli';
+    width: 60px;
+    font-size: 15px;
+    padding: 3px;
+    color: #404040;
+    background-color: #f8ffff;
+}
+
+.addNewTaskBtn:hover {
+    background-color: #527df4;
+    color: #f8ffff;
+}
+
+.taskListDiv {
+    background-color: #36c5f4;
+    text-align: center;
+}
+
+.taskList {
+    font-family: 'MV Boli';
     margin: 0;
-    padding: 10px;
-}
-
-.taskListHeader{
     text-align: center;
-}
-
-.taskList{
-    text-align: center;
-    min-height: 150px;
-    max-height: 150px;
+    font-size: 16px;
+    position: relative;
+    color: #f8ffff;
+    background-color: #36c5f4;
+    width: 50%;
+    left: 25%;
+    border-color: #527df4;
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 30px;
+    min-height: 200px;
+    max-height: 200px;
     overflow-y: scroll;
-    float: left;
-    margin-left: 47%;
 }
 
-.functionalBtns{
-    margin-top: 200px;
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: #527df4;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #f8ffff;
+}
+
+.checkUncheckBtn,
+.delCheckedBtn {
+    margin-top: 30px;
+    margin-bottom: 5px;
+    background-color: #edf4f4;
+    font-family: 'MV Boli';
+    font-size: 15px;
+    color: #404040;
+    padding: 10px 15px;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    border: hidden;
+}
+
+.checkUncheckBtn:hover,
+.delCheckedBtn:hover {
+    background-color: #527df4;
+    color: #e8e3f4;
+}
+
+.activeTasks {
+    padding-right: 20px;
+    color: white;
+    font-family: 'MV Boli';
+    text-decoration: none;
+    display: inline-block;
+}
+
+.footer {
     text-align: center;
+    background-color: #36c5f4;
 }
 
-.groupRadioBtn{
+.groupRadioBtn {
     padding: 10px;
+    cursor: pointer;
     display: inline;
+
 }
 
-.task_visible{
+.taskCloseBtn {
+    margin-left: 20px;
+    margin-bottom: 7px;
+    margin-right: 5px;
+    cursor: pointer;
+    font-family: 'MV Boli';
+    font-size: 14px;
+    width: 25px;
+    border-radius: 20%;
+    border-style: solid;
+    border-color: #f4f4f4;
+    background-color: #36c5f4;
+    color: #f4f4f4;
+}
+
+.taskCloseBtn:hover {
+    border-color: #36c5f4;
+    background-color: #527df4;
+    color: #f8ffff;
+}
+
+.task_visible {
     display: block;
 }
 
-.task_invisible{
+.task_invisible {
     display: none;
 }
 
-.taskCheckBox_visible{
-    visibility: visible;
+.taskCheckBox_visible {
+    cursor: pointer;
+    margin-right: 20px;
+    visibility: visible;;
 }
 
-.taskCheckBox_invisible{
+.taskCheckBox_invisible {
     visibility: hidden;
 }

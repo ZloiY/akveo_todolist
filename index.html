@@ -1,25 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
     <link  rel="stylesheet" href="style/style.css">
-    <script src="sources/ItemListOperations.js" type="text/javascript"></script>
+    <script src="sources/TaskListOperations.js" type="text/javascript"></script>
     <script src="sources/ToDoList.js" type="text/javascript"></script>
     <div id="myDIV" class="taskListHeader">
         <h2>Akveo To Do List</h2>
-        <input type="text" id="itemInput" placeholder="Item name..." size="100">
-        <input type="button" id="addBtn" value="Add">
+        <input type="text" class="inputNewTask" id="itemInput" placeholder="Item name..." size="100">
+        <input type="button" class="addNewTaskBtn" id="addBtn" value="Add">
         <form id="sortDiv" action="">
             <input type="radio" name="sort" id="all" checked="checked"  class="groupRadioBtn"><label>All</label>
             <input type="radio" name="sort" id="complete"  class="groupRadioBtn"><label>Complete</label>
             <input type="radio" name="sort" id="active"  class="groupRadioBtn"><label>Active</label>
         </form>
     </div>
-    <div id = "myForm" class="taskList">
-        <ul id="myList" ></ul>
+    <div class="taskListDiv" id = "myForm">
+        <ul class="taskList" id="myList" ></ul>
     </div>
-    <div id="btnDiv" class="functionalBtns" >
-        <label>Active tasks: </label>
-        <label id="itemsNum">0</label>
-        <input type="button" id = "checkUncheck" value="Check/Uncheck All">
-        <input type="button" id="delBtn"  value="Del checked">
+    <div id="btnDiv" class="footer">
+          <div class="activeTasks">
+             <label class="activeTasks">Active tasks: </label>
+             <label class="activeTasks" id="itemsNum">0</label>
+         </div>
+        <input type="button" class="checkUncheckBtn" id = "checkUncheck" value="Check/Uncheck All">
+        <input type="button" class="delCheckedBtn" id="delBtn"  value="Del checked">
     </div>
 </html>
