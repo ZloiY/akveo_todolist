@@ -12,7 +12,7 @@ function main() {
   const itemsNum = document.getElementById('itemsNum');
   const inputField = document.getElementById('itemInput');
   const operations = new ItemListOperations();
-  const eventListeneresParametres = {
+  const eventListenersParameters = {
     operations,
     addBtn,
     allRadio,
@@ -22,9 +22,9 @@ function main() {
     delCheckedBtn,
     inputField,
   };
-  addBtnsFieldEvListeners(eventListeneresParametres);
-  addDocHotKeyEvListeners(eventListeneresParametres);
-  addInputFieldEvListener(eventListeneresParametres);
+  addBtnsFieldEvListeners(eventListenersParameters);
+  addDocHotKeyEvListeners(eventListenersParameters);
+  addInputFieldEvListener(eventListenersParameters);
 }
 
 function  addBtnsFieldEvListeners(eventListenersParameters) {
