@@ -63,11 +63,10 @@ class ItemListOperations {
   delCheckEl() {
     const itemsList = document.getElementById('myList');
     for (let itemsNum =0;  itemsNum < itemsList.childNodes.length; itemsNum += 1) {
-      this.checkSearch(
+      itemsNum =checkSearch(
         itemsNum,
         itemsList
       );
-      itemsNum = -1;
     }
   }
 }
@@ -77,11 +76,12 @@ function checkSearch(
   itemList
 ) {
   for (let itemAttr of itemList.childNodes[itemNum].childNodes) {
-     itemDel(
-       itemAttr,
-       itemList,
-       itemNum
-     );
+    const itemsNum = itemDel(
+      itemAttr,
+      itemList,
+      itemNum
+    );
+    return itemsNum;
   }
 }
 
@@ -92,6 +92,9 @@ function itemDel(
 ) {
   if (itemAttr.id === 'check' && itemAttr.checked) {
     itemList.removeChild(itemList.childNodes[itemNum]);
+    return -1;
+  } else {
+    return itemNum;
   }
 }
 
