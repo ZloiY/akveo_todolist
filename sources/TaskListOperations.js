@@ -16,8 +16,8 @@ class ItemListOperations {
     const checkBox = createCheckBox();
     checkBox.addEventListener('click', checkBoxListener);
     close.addEventListener('click', closeBtnListener);
-    checkBox.className = 'taskCheckBox_visible';
-    close.className = 'taskCloseBtn';
+    checkBox.className = 'task-checkbox-visible';
+    close.className = 'task-close-btn';
     newTaskAppendChildren(
       newTask,
       checkBox,
@@ -38,8 +38,8 @@ class ItemListOperations {
   displayAllItems() {
     const itemsList = document.getElementById('myList');
     for (let itemNum=0; itemNum<itemsList.childNodes.length; itemNum += 1) {
-      itemsList.childNodes[itemNum].className = 'stdListEl';
-      itemsList.childNodes[itemNum].childNodes[0].className = 'visibleCheckBox';
+      itemsList.childNodes[itemNum].className = 'task-visible';
+      itemsList.childNodes[itemNum].childNodes[0].className = 'task-checkbox-visible';
     }
   }
 
@@ -181,7 +181,7 @@ function closeItemSearch(
 ) {
   let isCheck;
   for (let attrs of item.childNodes) {
-    isCheck = checkBoxCheck(attrs);
+    isCheck = checkBoxCheck(attrs, isCheck);
     closeBtnClick(
       attrs,
       itemsList,
@@ -191,12 +191,12 @@ function closeItemSearch(
   }
 }
 
-function checkBoxCheck(attrs) {
+function checkBoxCheck(attrs, isCheck) {
   if (attrs.id === 'check') {
      return !attrs.checked;
   }
 
-  return null;
+  return isCheck;
 }
 
 function closeBtnClick(
@@ -207,7 +207,7 @@ function closeBtnClick(
 ) {
   if (attrs.id === 'closeBtn' && document.activeElement === attrs){
     itemList.removeChild(item);
-    decreaseActiveItemsNum ? 0 : decreaseActiveItemCounter();
+    decreaseActiveItemsNum ? decreaseActiveItemCounter() : 0;
   }
 }
 
@@ -267,16 +267,16 @@ function invisCheckVisListEl(
   item,
   attrs
 ) {
-  item.className = 'task_visible';
-  attrs.className = 'taskCheckBox_invisible';
+  item.className = 'task-visible';
+  attrs.className = 'task-checkbox-invisible';
 }
 
 function visibleCheckInvisListEl(
   item,
   attrs
 ) {
-  attrs.className ='taskCheckBox_visible';
-  item.className = 'task_invisible';
+  attrs.className ='task-checkbox-visible';
+  item.className = 'task-invisible';
 }
 
 function increaseActiveItemCounter() {
@@ -322,5 +322,5 @@ function newTaskAppendChildren(
   newTask.appendChild(checkbox);
   newTask.appendChild(name);
   newTask.appendChild(closeBtn);
-  newTask.className = 'task_visible';
+  newTask.className = 'task-visible';
 }

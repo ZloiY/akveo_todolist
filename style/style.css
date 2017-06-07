@@ -2,21 +2,21 @@
     box-sizing: border-box;
 }
 
-.taskListHeader {
+.task-list-header {
     text-align: center;
     font-family: 'MV Boli';
     background-color: #36c5f4;
     color: #f8ffff;
 }
 
-.inputNewTask {
+.input-new-task {
     font-family: 'MV Boli';
     border: hidden;
     font-size: 15px;
     padding: 3px;
 }
 
-.addNewTaskBtn {
+.add-new-task-btn {
     border: hidden;
     cursor: pointer;
     font-family: 'MV Boli';
@@ -27,18 +27,18 @@
     background-color: #f8ffff;
 }
 
-.addNewTaskBtn:hover {
+.add-new-task-btn:hover {
     background-color: #527df4;
     color: #f8ffff;
     -webkit-box-shadow: 0 0 5px rgb(42, 42, 225);
 }
 
-.taskListDiv {
+.task-list-div {
     background-color: #36c5f4;
     text-align: center;
 }
 
-.taskList {
+.task-list {
     font-family: 'MV Boli';
     margin: 0;
     text-align: center;
@@ -71,8 +71,8 @@
     background-color: #f8ffff;
 }
 
-.checkUncheckBtn,
-.delCheckedBtn {
+.check-uncheck-btn,
+.del-checked-btn {
     margin-top: 30px;
     margin-bottom: 5px;
     background-color: #edf4f4;
@@ -86,14 +86,14 @@
     border: hidden;
 }
 
-.checkUncheckBtn:hover,
-.delCheckedBtn:hover {
+.check-uncheck-btn:hover,
+.del-checked-btn:hover {
     background-color: #527df4;
     color: #e8e3f4;
     -webkit-box-shadow: 0 0 5px rgb(42, 42, 225);
 }
 
-.activeTasks {
+.active-tasks {
     padding-right: 20px;
     color: white;
     font-family: 'MV Boli';
@@ -106,14 +106,14 @@
     background-color: #36c5f4;
 }
 
-.groupRadioBtn {
+.group-radio-btn {
     padding: 10px;
     cursor: pointer;
     display: inline;
 
 }
 
-.taskCloseBtn {
+.task-close-btn {
     margin-left: 20px;
     margin-bottom: 7px;
     margin-right: 5px;
@@ -128,27 +128,27 @@
     color: #f4f4f4;
 }
 
-.taskCloseBtn:hover {
+.task-close-btn:hover {
     border-color: #36c5f4;
     background-color: #527df4;
     color: #f8ffff;
     -webkit-box-shadow: inset 0 0 5px rgb(42, 42, 225);
 }
 
-.task_visible {
+.task-visible {
     display: block;
 }
 
-.task_invisible {
+.task-invisible {
     display: none;
 }
 
-.taskCheckBox_visible {
+.task-checkbox-visible {
     cursor: pointer;
     margin-right: 20px;
     visibility: visible;;
 }
 
-.taskCheckBox_invisible {
+.task-checkbox-invisible {
     visibility: hidden;
 }
