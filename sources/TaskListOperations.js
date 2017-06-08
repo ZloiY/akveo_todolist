@@ -84,8 +84,8 @@ class ItemListOperations {
 }
 
 function checkSearch(item) {
-  const $check = $(item).find('#check').prop('checked');
-  if ($check) {
+  const $checkbox = $(item).find('#check');
+  if ($checkbox.prop('checked')) {
     $(item).remove();
   }
 }
@@ -124,8 +124,8 @@ function checkBoxListener() {
 
 function checkBoxSearch(item) {
   const $checkbox = $(item).find('#check');
-  if ($($checkbox).is(':focus')) {
-    $($checkbox).prop('checked') ? decreaseActiveItemCounter() : increaseActiveItemCounter();
+  if ($checkbox.is(':focus')) {
+    $checkbox.prop('checked') ? decreaseActiveItemCounter() : increaseActiveItemCounter();
   }
 }
 
@@ -137,22 +137,22 @@ function closeBtnListener() {
 }
 
 function closeItemSearch(item) {
-  const $check = $(item).find('#check').prop('checked');
+  const $checkbox = $(item).find('#check');
   const $closeAttr = $(item).find('#closeBtn');
   if ($($closeAttr).is(':focus')) {
     $(item).remove();
-    $check ? 0 : decreaseActiveItemCounter();
+    $checkbox.prop('checked') ? 0 : decreaseActiveItemCounter();
   }
 }
 
 function showItemInProgress(item) {
   const $checkAttr = $(item).find('#check');
-  $($checkAttr).prop('checked') ? visibleCheckInvisListEl(item, $checkAttr) : invisCheckVisListEl(item, $checkAttr);
+  $checkAttr.prop('checked') ? visibleCheckInvisListEl(item, $checkAttr) : invisCheckVisListEl(item, $checkAttr);
 }
 
 function showCompleteItem(item) {
   const $checkAttr = $(item).find('#check');
-  $($checkAttr).prop('checked') ? invisCheckVisListEl(item, $checkAttr) : visibleCheckInvisListEl(item, $checkAttr);
+  $checkAttr.prop('checked') ? invisCheckVisListEl(item, $checkAttr) : visibleCheckInvisListEl(item, $checkAttr);
 }
 
 function invisCheckVisListEl(item, attrs) {
@@ -200,10 +200,10 @@ function createCheckBox() {
 }
 
 function taskListAppendChild(params) {
-  params.newTask.appendChild(params.checkbox);
-  params.newTask.appendChild(params.taskName);
-  params.newTask.appendChild(params.closeBtn);
-  params.newTask.className = 'task-visible';
+  $(params.newTask).append(params.checkbox);
+  $(params.newTask).append(params.taskName);
+  $(params.newTask).append(params.closeBtn);
+  $(params.newTask).addClass('task-visible');
   $('#myList').append(params.newTask);
 }
 
