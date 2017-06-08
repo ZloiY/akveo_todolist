@@ -7,62 +7,60 @@ class ItemListOperations {
 
   addElement() {
     const newTask = document.createElement('li');
-    const inputValue = document.getElementById('itemInput').value;
-    const taskName = document.createTextNode(inputValue);
+    const $inputValue = $('#itemInput').val();
+    const taskName = document.createTextNode($inputValue);
     const closeBtn = createCloseBtn();
     const checkbox = createCheckBox();
-    if (inputValue === '') {
-      alert('You must write something!');
-      return;
-    } else {
-      document.getElementById('myList').appendChild(newTask);
-    }
-    document.getElementById('itemInput').value = '';
-    checkbox.addEventListener('click', checkBoxListener);
-    closeBtn.addEventListener('click', closeBtnListener);
-    checkbox.className = 'task-checkbox-visible';
-    closeBtn.className = 'task-close-btn';
     const newTaskObj = {
       newTask,
       checkbox,
       taskName,
       closeBtn,
     };
+    if ($inputValue === '') {
+      alert('You must write something!');
+      return;
+    }
+    $('#itemInput').val('');
+    $(checkbox).click(checkBoxListener);
+    $(closeBtn).click(closeBtnListener);
+    $(checkbox).addClass('task-checkbox-visible');
+    $(closeBtn).addClass('task-close-btn');
     taskListAppendChild(newTaskObj);
     increaseActiveItemCounter();
     completeItemCheck();
   }
 
   displayCompleteItems() {
-    const completeRadio = document.getElementById('complete');
-    const completeRadioLabel = document.getElementById('completeTasks');
-    const itemsList = document.getElementById('myList');
-    radioGroupBtnCheck(completeRadio);
-    radioGroupLabelsClicked(completeRadioLabel);
-    for (let item of itemsList.childNodes) {
+    const $completeRadio = $('#complete');
+    const $completeRadioLabel = $('#completeTasks');
+    const $itemsList = $('#myList');
+    radioGroupBtnCheck($completeRadio);
+    radioGroupLabelsClicked($completeRadioLabel);
+    for (let item of $itemsList.children()) {
       showCompleteItem(item);
     }
   }
 
   displayAllItems() {
-    const allRadio = document.getElementById('all');
-    const allRadioLabel = document.getElementById('allTasks');
-    const itemsList = document.getElementById('myList');
-    radioGroupBtnCheck(allRadio);
-    radioGroupLabelsClicked(allRadioLabel);
-    for (let itemNum=0; itemNum<itemsList.childNodes.length; itemNum += 1) {
-      itemsList.childNodes[itemNum].className = 'task-visible';
-      itemsList.childNodes[itemNum].childNodes[0].className = 'task-checkbox-visible';
+    const $allRadio = $('#all');
+    const $allRadioLabel = $('#allTasks');
+    const $itemsList = $('#myList');
+    radioGroupBtnCheck($allRadio);
+    radioGroupLabelsClicked($allRadioLabel);
+    for (let item of $itemsList.children()) {
+      $(item).removeClass('task-invisible');
+      $(item).find('#check').removeClass('task-checkbox-invisible');
     }
   }
 
   displayItemsInProgress() {
-    const activeRadio = document.getElementById('active');
-    const activeRadioLabel = document.getElementById('activeTasks');
-    const itemsList = document.getElementById('myList');
-    radioGroupBtnCheck(activeRadio);
-    radioGroupLabelsClicked(activeRadioLabel);
-    for (let item of itemsList.childNodes) {
+    const $activeRadio = $('#active');
+    const $activeRadioLabel = $('#activeTasks');
+    const $itemsList = $('#myList');
+    radioGroupBtnCheck($activeRadio);
+    radioGroupLabelsClicked($activeRadioLabel);
+    for (let item of $itemsList.children()) {
       showItemInProgress(item);
     }
   }
@@ -78,149 +76,93 @@ class ItemListOperations {
   }
 
   delCheckEl() {
-    const itemsList = document.getElementById('myList');
-    for (let itemsNum =0;  itemsNum < itemsList.childNodes.length; itemsNum += 1) {
-      itemsNum = checkSearch(itemsNum, itemsList);
+    const $itemsList = $('#myList').children();
+    for (let item of $itemsList) {
+      checkSearch(item);
     }
   }
 }
 
-function checkSearch(itemNum, itemList) {
-  for (let itemAttr of itemList.childNodes[itemNum].childNodes) {
-    const itemsNum = itemDel(itemAttr, itemList, itemNum);
-    return itemsNum;
-  }
-}
-
-function itemDel(itemAttr, itemList, itemNum) {
-  if (itemAttr.id === 'check' && itemAttr.checked) {
-    itemList.removeChild(itemList.childNodes[itemNum]);
-    return -1;
-  } else {
-    return itemNum;
+function checkSearch(item) {
+  const $check = $(item).find('#check').prop('checked');
+  if ($check) {
+    $(item).remove();
   }
 }
 
 function completeItemCheck() {
-  if (document.getElementsByName('sort')[1].checked) {
+  if ($('#complete').checked) {
     this.displayCompleteItems();
   }
 }
 
 function setAllItemsFalse() {
-  const itemsList = document.getElementById('myList');
-  for (let item of itemsList.childNodes) {
+  const $itemsList = $('#myList');
+  for (let item of $itemsList.children()) {
     searchCheckAttr(item, false);
   }
 }
 
 function setAllItemsTrue() {
-  const itemsList = document.getElementById('myList');
-  for (let item of itemsList.childNodes) {
+  const $itemsList = $('#myList');
+  for (let item of $itemsList.children()) {
     searchCheckAttr(item, true);
   }
 }
 
 function searchCheckAttr(item, checkBoxState) {
-  for (let attr of item.childNodes) {
-    setCheckBox(attr, checkBoxState);
-  }
-}
-
-function setCheckBox(attr, checkBoxState) {
-  if (attr.id === 'check') {
-    attr.checked = checkBoxState;
-    attr.checked ?  decreaseActiveItemCounter() : increaseActiveItemCounter();
-  }
+  $(item).find('#check').prop('checked', checkBoxState);
+  checkBoxState ? decreaseActiveItemCounter() : increaseActiveItemCounter();
 }
 
 function checkBoxListener() {
-  const itemList = document.getElementById('myList');
-  for (let item of itemList.childNodes) {
-    chekcBoxSearch(item);
+  const $itemList = $('#myList');
+  for (let item of $itemList.children()) {
+    checkBoxSearch(item);
   }
 }
 
-function chekcBoxSearch(item) {
-  for (let attrs of item.childNodes) {
-    checkClicked(attrs);
-  }
-}
-
-function checkClicked(attrs) {
-  if (attrs.id === 'check' && document.activeElement === attrs) {
-    attrs.checked ? decreaseActiveItemCounter() : increaseActiveItemCounter();
+function checkBoxSearch(item) {
+  const $checkbox = $(item).find('#check');
+  if ($($checkbox).is(':focus')) {
+    $($checkbox).prop('checked') ? decreaseActiveItemCounter() : increaseActiveItemCounter();
   }
 }
 
 function closeBtnListener() {
-  const itemsList = document.getElementById('myList');
-  for (let item of itemsList.childNodes) {
-    closeItemSearch(item, itemsList);
+  const $itemsList = $('#myList').children();
+  for (let item of $itemsList) {
+    closeItemSearch(item);
   }
 }
 
-function closeItemSearch(item, itemsList) {
-  let isCheck;
-  for (let attrs of item.childNodes) {
-    isCheck = checkBoxCheck(attrs, isCheck);
-    const closeBtnParameters = {
-      itemsList,
-      item,
-      attrs,
-      isCheck,
-    };
-    closeBtnClick(closeBtnParameters);
-  }
-}
-
-function checkBoxCheck(attrs, isCheck) {
-  if (attrs.id === 'check') {
-     return !attrs.checked;
-  }
-
-  return isCheck;
-}
-
-function closeBtnClick(params) {
-  if (params.attrs.id === 'closeBtn' && document.activeElement === params.attrs){
-    params.itemsList.removeChild(params.item);
-    params.isCheck ? decreaseActiveItemCounter() : 0;
+function closeItemSearch(item) {
+  const $check = $(item).find('#check').prop('checked');
+  const $closeAttr = $(item).find('#closeBtn');
+  if ($($closeAttr).is(':focus')) {
+    $(item).remove();
+    $check ? 0 : decreaseActiveItemCounter();
   }
 }
 
 function showItemInProgress(item) {
-  for (let attrs of item.childNodes) {
-    setUpActiveListElVisibility(item, attrs);
-  }
-}
-
-function setUpActiveListElVisibility(item, attrs) {
-  if (attrs.id === 'check') {
-    attrs.checked ? visibleCheckInvisListEl(item, attrs) : invisCheckVisListEl(item, attrs);
-  }
+  const $checkAttr = $(item).find('#check');
+  $($checkAttr).prop('checked') ? visibleCheckInvisListEl(item, $checkAttr) : invisCheckVisListEl(item, $checkAttr);
 }
 
 function showCompleteItem(item) {
-  for (let attrs of item.childNodes) {
-    setUpCompleteListElVisibility(item, attrs);
-  }
-}
-
-function setUpCompleteListElVisibility(item, attrs) {
-  if (attrs.id === 'check') {
-    attrs.checked ? invisCheckVisListEl(item, attrs) : visibleCheckInvisListEl(item, attrs);
-  }
+  const $checkAttr = $(item).find('#check');
+  $($checkAttr).prop('checked') ? invisCheckVisListEl(item, $checkAttr) : visibleCheckInvisListEl(item, $checkAttr);
 }
 
 function invisCheckVisListEl(item, attrs) {
-  item.className = 'task-visible';
-  attrs.className = 'task-checkbox-invisible';
+  $(item).removeClass('task-invisible');
+  $(attrs).addClass('task-checkbox-invisible');
 }
 
 function visibleCheckInvisListEl(item, attrs) {
-  attrs.className ='task-checkbox-visible';
-  item.className = 'task-invisible';
+  $(attrs).removeClass('task-checkbox-invisible');
+  $(item).addClass('task-invisible');
 }
 
 function increaseActiveItemCounter() {
@@ -239,7 +181,7 @@ function decreaseActiveItemCounter() {
 }
 
 function setActiveItemsInHTML() {
-  document.getElementById('itemsNum').innerHTML = this.activeItems;
+  $('#itemsNum').html(this.activeItems);
 }
 
 function createCloseBtn() {
@@ -262,35 +204,36 @@ function taskListAppendChild(params) {
   params.newTask.appendChild(params.taskName);
   params.newTask.appendChild(params.closeBtn);
   params.newTask.className = 'task-visible';
+  $('#myList').append(params.newTask);
 }
 
 function radioGroupBtnCheck(radioBtn) {
   if (!radioBtn.checked) {
-    radioBtn.checked = true;
+    radioBtn.prop('checked', true);
   }
 }
 
 function radioGroupLabelsClicked(radioGroupLabel) {
-  const completeRadioGroupLabel = document.getElementById('completeTasks');
-  const activeRadioGroupLabel = document.getElementById('activeTasks');
-  const allRadioGroupLabel = document.getElementById('allTasks');
-  switch (radioGroupLabel.id){
-    case completeRadioGroupLabel.id: {
-      completeRadioGroupLabel.className = 'radio-btn-label-selected';
-      activeRadioGroupLabel.className = 'radio-btn-label';
-      allRadioGroupLabel.className = 'radio-btn-label';
+  const $completeRadioGroupLabel = $('#completeTasks');
+  const $activeRadioGroupLabel = $('#activeTasks');
+  const $allRadioGroupLabel = $('#allTasks');
+  switch (radioGroupLabel.prop('id')) {
+    case $completeRadioGroupLabel.prop('id'): {
+      $completeRadioGroupLabel.addClass('radio-btn-label-selected');
+      $activeRadioGroupLabel.removeClass('radio-btn-label-selected');
+      $allRadioGroupLabel.removeClass('radio-btn-label-selected');
       break;
     }
-    case activeRadioGroupLabel.id: {
-      completeRadioGroupLabel.className = 'radio-btn-label';
-      activeRadioGroupLabel.className = 'radio-btn-label-selected';
-      allRadioGroupLabel.className = 'radio-btn-label';
+    case $activeRadioGroupLabel.prop('id'): {
+      $completeRadioGroupLabel.removeClass('radio-btn-label-selected');
+      $activeRadioGroupLabel.addClass('radio-btn-label-selected');
+      $allRadioGroupLabel.removeClass('radio-btn-label-selected');
       break;
     }
-    case allRadioGroupLabel.id: {
-      completeRadioGroupLabel.className = 'radio-btn-label';
-      activeRadioGroupLabel.className = 'radio-btn-label';
-      allRadioGroupLabel.className = 'radio-btn-label-selected';
+    case $allRadioGroupLabel.prop('id'): {
+      $completeRadioGroupLabel.removeClass('radio-btn-label-selected');
+      $activeRadioGroupLabel.removeClass('radio-btn-label-selected');
+      $allRadioGroupLabel.addClass('radio-btn-label-selected');
       break;
     }
     default: {
