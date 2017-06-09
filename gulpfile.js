@@ -11,7 +11,7 @@ var lr = require('tiny-lr');
 var server = lr();
 
 gulp.task('css', function () {
-  gulp.src('./gen_style/style.css')
+  gulp.src('./style_gen/style.css')
     .pipe(csso())
     .pipe(gulp.dest('./gulp_gen/style/'))
     .pipe(livereload(server));
@@ -38,7 +38,7 @@ gulp.task('watch', function() {
 
   server.listen(35729, function(err) {
     if (err) return console.log(err);
-    gulp.watch('gen_style/style.css', function() {
+    gulp.watch('style_gen/style.css', function() {
       gulp.run('css');
     });
     gulp.watch('sources/*.js', function() {
@@ -51,7 +51,7 @@ gulp.task('watch', function() {
 gulp.task('build', function() {
 
   pump([
-    gulp.src('./gen_style/style.css'),
+    gulp.src('./style_gen/style.css'),
     csso(),
     gulp.dest('./gulp_build/style/')
   ]);
