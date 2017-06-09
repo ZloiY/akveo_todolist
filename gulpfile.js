@@ -60,7 +60,7 @@ gulp.task('build', function() {
     gulp.src('./sources/*.js'),
     concat('index.js'),
     gulp.dest('./gulp_gen/sources'),
-    minify(options).on('error', function (e) {
+    minify(options).on('error', function (err) {
       console.log(e);
     }),
     gulp.dest('./gulp_build/sources/')
