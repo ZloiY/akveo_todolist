@@ -25,7 +25,7 @@ var path = {
     html: './assets/src/index.html',
   },
   watch: {
-    js: './assets/src/js/partials/*.js',
+    js: './assets/src/js/**/*.js',
     scss: './assets/src/style/*.scss',
     html: './assets/src/index.html',
   },
