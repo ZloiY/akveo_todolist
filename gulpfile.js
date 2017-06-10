@@ -70,11 +70,6 @@ gulp.task('js:build', (cb) => {
 });
 
 gulp.task('html:build', (cb) => {
-  // return pump([
-  //   gulp.src(path.src.html),
-  //   gulp.dest(path.build.html),
-  //   reload({stream: true}),
-  // ], cb);
   return gulp.src(path.src.html)
     .pipe(gulp.dest(path.build.html))
     .pipe(reload({stream: true}));
