@@ -1,9 +1,0 @@
-# Created by .ignore support plugin (hsz.mobi)
-.gitignore
-.idea/inspectionProfiles/
-.idea/workspace.xml
-.sass-cache/
-bower_components/
-gulpfile.js
-bower.json
-package.json
