@@ -1,0 +1,34 @@
+{
+  "name": "akveo_todolist",
+  "version": "1.0.0",
+  "description": "",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ZloiY/akveo_todolist.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ZloiY/akveo_todolist/issues"
+  },
+  "homepage": "https://zloiy.github.io/akveo_todolist/",
+  "dependencies": {
+	"browser-sync": "^2.18.12",
+	"gulp": "^3.9.1",
+	"gulp-csso": "^3.0.0",
+	"gulp-ruby-sass": "^2.1.1",
+	"gulp-uglify": "^3.0.0",
+	"uglify-es": "^3.0.15",
+	"rigger": "^0.5.10",
+	"gulp-rigger": "^0.5.8",
+	"gulp-concat": "^2.6.1",
+	"gulp-sourcemaps": "^2.6.0",
+	"gulp-watch": "^4.3.11",
+	"pump": "^1.0.2",
+	"rimraf": "^2.6.1"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "name": "akveo_todolist",
+  "homepage": "https://github.com/ZloiY/akveo_todolist",
+  "authors": [
+    "ZloiY <NoRFolf1000@gmail.com>"
+  ],
+  "description": "",
+  "main": "index.html",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "3.2.1"
+  }
+}
