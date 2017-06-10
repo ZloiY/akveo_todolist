@@ -20,7 +20,7 @@
       <option name="workingDir" value="$ContentRoot$" />
       <envs />
     </TaskOptions>
-    <TaskOptions isEnabled="true">
+    <TaskOptions isEnabled="false">
       <option name="arguments" value="$ProjectFileDir$\style\$FileNameWithoutExtension$.scss" />
       <option name="checkSyntaxErrors" value="true" />
       <option name="description" />
@@ -28,7 +28,7 @@
       <option name="fileExtension" value="scss" />
       <option name="immediateSync" value="true" />
       <option name="name" value="SCSS" />
-      <option name="output" value="$ProjectFileDir$\gen_style\$FileNameWithoutExtension$.css" />
+      <option name="output" value="$ProjectFileDir$\style\$FileNameWithoutExtension$.css" />
       <option name="outputFilters">
         <array />
       </option>

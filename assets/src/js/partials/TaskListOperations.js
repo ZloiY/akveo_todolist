@@ -187,7 +187,7 @@ function createCloseBtn() {
   const closeBtn = document.createElement('input');
   closeBtn.type = 'button';
   closeBtn.id = 'closeBtn';
-  closeBtn.value = '\u00D7';
+  closeBtn.value = 'x';
   return closeBtn;
 }
 
